@@ -1,7 +1,18 @@
 storm.zookeeper.servers:
-    - "%zookeeper%"
-nimbus.host: "%nimbus%"
+    - "zk"
+nimbus.host: "nimbus"
 drpc.servers:
-  - "%nimbus%"
+  - "nimbus"
 drpc.port: 3772
 drpc.invocations.port: 3773
+
+topology.builtin.metrics.bucket.size.secs: 10
+topology.metrics.consumer.register:
+  - class: "com.verisign.storm.metrics.GraphiteMetricsConsumer"
+    parallelism.hint: 1
+    argument:
+      metrics.reporter.name: "com.verisign.storm.metrics.reporters.graphite.GraphiteReporter"
+      metrics.graphite.host: "graphite"
+      metrics.graphite.port: "2003"
+      metrics.graphite.prefix: "storm.test"
+      metrics.graphite.min-connect-attempt-interval-secs: "5"

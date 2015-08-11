@@ -1,30 +1,42 @@
 zookeeper:
   image: wurstmeister/zookeeper
-  ports: 
+  ports:
     - "49181:2181"
     - "22"
+graphite:
+    image: kamon/grafana_graphite
+    ports:
+      - "10080:80"
+      - "10081:81"
+      - "2003:2003/udp"
+      - "2003:2003/tcp"
+      - "8125:8125/udp"
+      - "8126:8126"
 nimbus:
-  image: wurstmeister/storm-nimbus
+  image: jalexoid/storm-nimbus:0.9.5
   ports:
     - "49773:3773"
     - "49772:3772"
     - "49627:6627"
     - "22"
-  links: 
+  links:
     - zookeeper:zk
+    - graphite:graphite
 supervisor:
-  image: wurstmeister/storm-supervisor
+  image: jalexoid/storm-supervisor:0.9.5
   ports:
     - "8000"
     - "22"
-  links: 
+  links:
     - nimbus:nimbus
     - zookeeper:zk
+    - graphite:graphite
 ui:
-  image: wurstmeister/storm-ui
+  image: jalexoid/storm-ui:0.9.5
   ports:
     - "49080:8080"
     - "22"
-  links: 
+  links:
     - nimbus:nimbus
     - zookeeper:zk
+    - graphite:graphite
