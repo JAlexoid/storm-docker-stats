@@ -9,7 +9,7 @@ mv build/libs/storm-graphite-0.2.3-SNAPSHOT-all.jar ../storm/
 cd ..
 rm -rf __stg-tmp
 
-docker build -t="jalexoid/storm:0.9.5" storm
-docker build -t="jalexoid/storm-nimbus:0.9.5" storm-nimbus
-docker build -t="jalexoid/storm-supervisor:0.9.5" storm-supervisor
-docker build -t="jalexoid/storm-ui:0.9.5" storm-ui
+docker build -t="jalexoid/sstorm:latest" storm
+docker build -t="jalexoid/sstorm-nimbus:latest" storm-nimbus
+docker build -t="jalexoid/sstorm-supervisor:latest" storm-supervisor
+docker build -t="jalexoid/sstorm-ui:latest" storm-ui
